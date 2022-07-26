@@ -1,0 +1,71 @@
+/* Create table about the people and what they do here */
+CREATE TABLE celebrities (
+id INTEGER PRIMARY KEY,
+name TEXT,
+birthplace TEXT);
+
+INSERT INTO celebrities VALUES (1, 'Michael Jackson', 'Indiana');
+INSERT INTO celebrities VALUES (2, 'Prince', 'Minnesota');
+INSERT INTO celebrities VALUES (3, 'Rick James', 'New York');
+INSERT INTO celebrities VALUES (4, 'Emma Stone', 'Arizona');
+INSERT INTO celebrities VALUES (5, 'Paul Walker', 'California');
+INSERT INTO celebrities VALUES (6, 'Vin Diesel', 'California');
+
+
+CREATE TABLE profession (
+id INTEGER PRIMARY KEY,
+type TEXT,
+celebrities_id INTEGER);
+
+INSERT INTO profession VALUES (1, 'Musician', 1);
+INSERT INTO profession VALUES (2, 'Musician', 2);
+INSERT INTO profession VALUES (3, 'Musician', 3);
+INSERT INTO profession VALUES (4, 'Actor', 4);
+INSERT INTO profession VALUES (5, 'Actor', 5);
+INSERT INTO profession VALUES (6, 'Actor', 6);
+
+CREATE TABLE income (
+id INTEGER PRIMARY KEY,
+net_worth INTEGER,
+celebrities_id INTEGER);
+
+INSERT INTO income VALUES (1, 400000000, 1);
+INSERT INTO income VALUES (2, 156000000, 2);
+INSERT INTO income VALUES (3, 250000, 3);
+INSERT INTO income VALUES (4, 40000000, 4);
+INSERT INTO income VALUES (5, 25000000, 5);
+INSERT INTO income VALUES (6, 225000000, 6);
+
+CREATE TABLE popular_project (
+id INTEGER PRIMARY KEY,
+name TEXT,
+celebrities_id INTEGER);
+
+INSERT INTO popular_project VALUES (1, 'Thriller', 1);
+INSERT INTO popular_project VALUES (2, 'Purple Rain', 2);
+INSERT INTO popular_project VALUES (3, 'Cold Blooded', 3);
+INSERT INTO popular_project VALUES (4, 'La La Land', 4);
+INSERT INTO popular_project VALUES (5, 'Fast and Furious', 5);
+INSERT INTO popular_project VALUES (6, 'XXX', 6);
+
+    
+SELECT celebrities.name AS Name, profession.type AS Profession
+FROM celebrities
+JOIN profession
+    ON celebrities.id = profession.celebrities_id;
+
+SELECT celebrities.name as Celebrity_Name, income.net_worth AS Net_Worth
+FROM celebrities
+JOIN income
+    ON celebrities.id = income.celebrities_id
+ORDER BY income.net_worth DESC;
+
+SELECT celebrities.name AS Celebrity_Name, popular_project.name AS Project_Name
+FROM celebrities
+JOIN popular_project
+    ON celebrities.id = popular_project.celebrities_id;
+    
+
+SELECT ROUND(AVG(income.net_worth)) AS Average_Celebrity_Worth
+FROM income;
+
