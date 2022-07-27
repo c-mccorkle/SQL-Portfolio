@@ -1,5 +1,14 @@
+"How many customers ordered more than 2 products at a time in February, and what was the average amount spent for those customers?"
+
 SELECT COUNT(cust.acctnum) AS num_of_customers, AVG(quantity*price) AS avg_amount_spent
 FROM BIT_DB.FebSales Feb
 LEFT JOIN BIT_DB.customers cust
     ON Feb.orderID = cust.order_id 
 WHERE quantity > 2;
+
+"List all the products sold in Los Angeles in February, and include how many of each were sold."
+
+SELECT product, sum(quantity)
+FROM BIT_DB.FebSales
+WHERE location LIKE '%Los Angeles%'
+GROUP BY product;
