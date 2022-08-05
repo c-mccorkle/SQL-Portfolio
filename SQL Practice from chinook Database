@@ -1,19 +1,19 @@
-# This page contains SQL I wrote to analyze the data found in a database called "chinook".  "Chinook" contains data from a fictional 
-# music store using 11 tables.
+# This page contains SQL I wrote to analyze the data found in a database called "chinook".  "Chinook" contains data from a fictional #
+# music store using 11 tables.#
 
-# Customers full names, customer ID, and country who are not in the US.
+# Customers full names, customer ID, and country who are not in the US.#
 
 SELECT firstname, lastname, customerid, country
 FROM customers
 WHERE country != 'USA';
 
-# Customers from Brazil.
+# Customers from Brazil.#
 
 SELECT firstname, lastname, customerid, country
 FROM customers
 WHERE country = 'Brazil';
 
-# Invoices of customers who are from Brazil showing customer's full name, Invoice ID, Date of the invoice, and billing country.
+# Invoices of customers who are from Brazil showing customer's full name, Invoice ID, Date of the invoice, and billing country.#
 
 SELECT customers.firstname, customers.lastname, invoices.invoiceid, invoices.InvoiceDate, invoices.BillingCountry
 FROM customers
