@@ -1,4 +1,4 @@
-# In this SQL code, I'm querying a database holding data from a music store chain to answer questions about the data.
+# In this SQL code, I'm querying a database holding data from a music and electronics store chain to answer questions about the data.
 
 # How many customers ordered more than 2 products at a time in February, and what was the average amount spent for those customers?
 
