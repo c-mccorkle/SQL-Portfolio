@@ -1,19 +1,21 @@
-/* Create table about the people and what they do here */
+# Create a database of celebrity info.  
+
 CREATE TABLE celebrities (
 id INTEGER PRIMARY KEY,
 name TEXT,
-birthplace TEXT);
+birthplace TEXT,
+birthday DATE);
 
-INSERT INTO celebrities VALUES (1, 'Michael Jackson', 'Indiana');
-INSERT INTO celebrities VALUES (2, 'Prince', 'Minnesota');
-INSERT INTO celebrities VALUES (3, 'Rick James', 'New York');
-INSERT INTO celebrities VALUES (4, 'Emma Stone', 'Arizona');
-INSERT INTO celebrities VALUES (5, 'Paul Walker', 'California');
-INSERT INTO celebrities VALUES (6, 'Vin Diesel', 'California');
+INSERT INTO celebrities VALUES (1, 'Michael Jackson', 'Indiana', '1958-08-29');
+INSERT INTO celebrities VALUES (2, 'Prince', 'Minnesota', '1958-07-07');
+INSERT INTO celebrities VALUES (3, 'Rick James', 'New York', '1948-02-01');
+INSERT INTO celebrities VALUES (4, 'Emma Stone', 'Arizona', '1988-11-06');
+INSERT INTO celebrities VALUES (5, 'Paul Walker', 'California', '1973-09-12');
+INSERT INTO celebrities VALUES (6, 'Vin Diesel', 'California', '1967-07-18');
 
 
 CREATE TABLE profession (
-id INTEGER PRIMARY KEY,
+profession_id INTEGER PRIMARY KEY,
 type TEXT,
 celebrities_id INTEGER);
 
@@ -25,7 +27,7 @@ INSERT INTO profession VALUES (5, 'Actor', 5);
 INSERT INTO profession VALUES (6, 'Actor', 6);
 
 CREATE TABLE income (
-id INTEGER PRIMARY KEY,
+income_id INTEGER PRIMARY KEY,
 net_worth INTEGER,
 celebrities_id INTEGER);
 
@@ -37,7 +39,7 @@ INSERT INTO income VALUES (5, 25000000, 5);
 INSERT INTO income VALUES (6, 225000000, 6);
 
 CREATE TABLE popular_project (
-id INTEGER PRIMARY KEY,
+project_id INTEGER PRIMARY KEY,
 name TEXT,
 celebrities_id INTEGER);
 
@@ -48,23 +50,31 @@ INSERT INTO popular_project VALUES (4, 'La La Land', 4);
 INSERT INTO popular_project VALUES (5, 'Fast and Furious', 5);
 INSERT INTO popular_project VALUES (6, 'XXX', 6);
 
-    
+
+# Select celebrity names along with their profession.
+
 SELECT celebrities.name AS Name, profession.type AS Profession
 FROM celebrities
 JOIN profession
     ON celebrities.id = profession.celebrities_id;
+    
+# Display top 3 highest net worth celebrities ordered by net worth greatest to least.  
 
 SELECT celebrities.name as Celebrity_Name, income.net_worth AS Net_Worth
 FROM celebrities
 JOIN income
     ON celebrities.id = income.celebrities_id
-ORDER BY income.net_worth DESC;
+ORDER BY income.net_worth DESC
+LIMIT 3;
+
+# Display celebrity names along with their popular project.  
 
 SELECT celebrities.name AS Celebrity_Name, popular_project.name AS Project_Name
 FROM celebrities
 JOIN popular_project
     ON celebrities.id = popular_project.celebrities_id;
     
+# Display average worth of all celebrities.  
 
 SELECT ROUND(AVG(income.net_worth)) AS Average_Celebrity_Worth
 FROM income;
