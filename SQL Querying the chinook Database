@@ -1,7 +1,6 @@
-# This page contains SQL I wrote to analyze the data found in a database called "chinook".  "Chinook" contains data from a fictional #
-# music store using 11 tables.#
+# In this SQL, I am querying a multiple table database called "chinook", in order to to answer questions concerning employees, customers, and product info.  
 
-# Customers full names, customer ID, and country who are not in the US.#
+# This SQLCustomers full names, customer ID, and country who are not in the US.
 
 SELECT firstname, lastname, customerid, country
 FROM customers
@@ -13,7 +12,7 @@ SELECT firstname, lastname, customerid, country
 FROM customers
 WHERE country = 'Brazil';
 
-# Invoices of customers who are from Brazil showing customer's full name, Invoice ID, Date of the invoice, and billing country.#
+# Select invoices of customers who are from Brazil showing customer's full name, Invoice ID, Date of the invoice, and billing country.#
 
 SELECT customers.firstname, customers.lastname, invoices.invoiceid, invoices.InvoiceDate, invoices.BillingCountry
 FROM customers
@@ -21,7 +20,7 @@ JOIN invoices
     ON customers.customerid = invoices.CustomerId
 WHERE country = 'Brazil';
 
-# Employees who are Sales Agents and what type of sales they are in.  
+# Select employees who are Sales Agents and what type of sales they are in.  
 
 SELECT firstname, lastname, title 
 FROM employees
@@ -37,7 +36,7 @@ JOIN playlists
     ON pltr.PlaylistId = playlists.PlaylistId
 WHERE Playlists.name = 'Heavy Metal Classic';
 
-# Invoices associated with each sales agent.
+# Select invoices associated with each sales agent.
 
 SELECT employees.FirstName, employees.LastName, invoices.InvoiceId
 FROM customers
@@ -46,7 +45,7 @@ INNER JOIN employees
 INNER JOIN invoices
     ON customers.CustomerId = invoices.CustomerId;
     
-# Invoice Total, Customer name, Country, and Sales Agent name for all invoices and customers.
+# Select Invoice Total, Customer name, Country, and Sales Agent name for all invoices and customers.
 
 SELECT invoices.total AS Invoice_Total, employees.FirstName AS Agent_FirstName, employees.LastName AS Agent_LastName, customers.FirstName AS cust_FirstName, customers.LastName AS cust_LastName, 
 customers.Country
@@ -56,13 +55,13 @@ FULL JOIN employees
 FULL JOIN invoices
     ON customers.CustomerId = invoices.CustomerId;
     
-# Number of Invoices in 2009?
+# Number of Invoices in 2009.
 
 SELECT COUNT(*)
 FROM invoices 
 WHERE invoicedate LIKE '2009%';
 
-# Total sales for 2009?
+# Total sales for 2009.
 
 SELECT SUM(total)
 FROM invoices
@@ -114,7 +113,7 @@ GROUP BY employees.FirstName
 ORDER BY Total_Sales DESC;
 
 
-# Sales agent with the most sales in 2009?
+# Sales agent with the most sales in 2009.
 
 SELECT employees.FirstName AS Sales_Rep_FirstName,  employees.LastName AS Sales_Rep_LastName, 
 ROUND(SUM(invoices.total), 2) AS Total_Sales
