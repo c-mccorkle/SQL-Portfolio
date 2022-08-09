@@ -1,0 +1,79 @@
+# In this project I acquired data concerning multiple retail stores on kraggle.com.   
+# Next, I created tables and inserted the data.
+# Then, I performed Analytics on the data using SQL.
+
+CREATE TABLE chinook.Features(
+Store INTEGER,
+Date DATE,
+Temperature DECIMAL (5,2),
+Fuel_Price DECIMAL (4,3),
+MarkDown1 DECIMAL(8,2),
+MarkDown2 DECIMAL (8,2),
+MarkDown3 DECIMAL (8,2),
+MarkDown4 DECIMAL (8,2),
+MarkDown5 DECIMAL (8,2),
+CPI DECIMAL (8,4),
+Unemployment DECIMAL (4,3),
+IsHoliday TEXT);
+
+CREATE TABLE chinook.Sales(
+Store INTEGER,
+Dept INTEGER,
+Date DATE,
+Weekly_Sales DECIMAL (8,2),
+IsHoliday TEXT);
+
+CREATE TABLE chinook.Stores(
+Store INTEGER,
+Type TEXT,
+Size INTEGER);
+
+# Lifetime Sales of each store
+
+SELECT Store, ROUND(SUM(Weekly_Sales)) Lifetime_Sales
+FROM chinook.Sales
+GROUP BY Store;
+
+# Show company wide sales in 2012 for each department.  
+
+SELECT Dept, ROUND(SUM(Weekly_Sales)) Total_Sales
+FROM chinook.Sales
+WHERE Date LIKE '%2012%'
+GROUP BY Dept;
+
+# Select annual sales for each store including the store type.
+
+SELECT Store, ROUND(SUM(Weekly_Sales)) Total_Sales,
+    CASE
+        WHEN CST.Type = 'A' THEN 'Drive Thru'
+        WHEN CST.Type = 'B' THEN 'Cafe'
+        ELSE 'Other'
+    END AS Store_Type
+FROM chinook.Sales CSA
+JOIN chinook.Stores CST
+    ON CSA.Store = CST.Store
+WHERE Date LIKE '%2011%'
+GROUP BY CST.Store;
+
+# Total sales for 2012 grouped by type of store (Drive Thru, Cafe, or Other).
+
+SELECT Store, ROUND(SUM(Weekly_Sales)) Total_Sales,
+    CASE
+        WHEN CST.Type = 'A' THEN 'Drive Thru'
+        WHEN CST.Type = 'B' THEN 'Cafe'
+        ELSE 'Other'
+    END AS Store_Type
+FROM chinook.Sales CSA
+JOIN chinook.Stores CST
+    ON CSA.Store = CST.Store
+WHERE Date LIKE '%2012%'
+GROUP BY Store_Type;
+
+
+
+
+
+
+
+
+
