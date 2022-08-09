@@ -1,4 +1,6 @@
-"How many customers ordered more than 2 products at a time in February, and what was the average amount spent for those customers?"
+# In this SQL code, I'm querying a database holding data from a music store chain to answer questions about the data.
+
+# How many customers ordered more than 2 products at a time in February, and what was the average amount spent for those customers?
 
 SELECT COUNT(cust.acctnum) AS num_of_customers, AVG(quantity*price) AS avg_amount_spent
 FROM BIT_DB.FebSales Feb
@@ -6,14 +8,14 @@ LEFT JOIN BIT_DB.customers cust
     ON Feb.orderID = cust.order_id 
 WHERE quantity > 2;
 
-"List all the products sold in Los Angeles in February, and include how many of each were sold."
+# List all the products sold in Los Angeles in February, and include how many of each were sold.
 
 SELECT product, sum(quantity)
 FROM BIT_DB.FebSales
 WHERE location LIKE '%Los Angeles%'
 GROUP BY product;
 
-"Which locations in New York received at least 3 orders in January, and how many orders did they each receive?"
+# Which locations in New York received at least 3 orders in January, and how many orders did they each receive?
 
 SELECT location, COUNT(orderID) AS Total_Orders
 FROM BIT_DB.JanSales
@@ -21,21 +23,21 @@ WHERE location LIKE '%NY%'
 GROUP BY location
 HAVING COUNT(orderID) > 2;
 
-"How many of each type of headphone were sold in February?"
+# How many of each type of headphone were sold in February?
 
 SELECT Product, SUM(quantity) AS Quantity_Sold
 FROM BIT_DB.FebSales
 WHERE product LIKE '%headphone%'
 GROUP BY Product;
 
-"What was the average amount spent per account in February?"
+# What was the average amount spent per account in February?
 
 SELECT SUM(Feb.Quantity)/COUNT(cust.acctnum)
 FROM BIT_DB.FebSales Feb
 LEFT JOIN BIT_DB.customers cust
     ON Feb.orderID = cust.order_id;
     
-"Which product brought in the most revenue in January and how much revenue did it bring in total?"
+# Which product brought in the most revenue in January and how much revenue did it bring in total?
     
 SELECT product, SUM(quantity*price) AS Total_Revenue
 FROM BIT_DB.JanSales
