@@ -1,18 +1,18 @@
 # In this SQL, I am querying a multiple table database called "chinook", in order to to answer questions concerning employees, customers, and product info.  
 
-# This SQLCustomers full names, customer ID, and country who are not in the US.
+# This SQL Selects customers full names, customer ID, and country of customers who are not in the US.
 
 SELECT firstname, lastname, customerid, country
 FROM customers
 WHERE country != 'USA';
 
-# Customers from Brazil.#
+# Customers from Brazil.
 
 SELECT firstname, lastname, customerid, country
 FROM customers
 WHERE country = 'Brazil';
 
-# Select invoices of customers who are from Brazil showing customer's full name, Invoice ID, Date of the invoice, and billing country.#
+# Select invoices of customers who are from Brazil showing customer's full name, Invoice ID, Date of the invoice, and billing country.
 
 SELECT customers.firstname, customers.lastname, invoices.invoiceid, invoices.InvoiceDate, invoices.BillingCountry
 FROM customers
