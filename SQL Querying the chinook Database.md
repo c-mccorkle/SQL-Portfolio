@@ -1,6 +1,6 @@
-# In this SQL, I am querying a multiple table database called "chinook", in order to to answer questions concerning employees, customers, and product info.  
+## In this SQL, I am querying a multiple table database called "chinook", in order to to answer questions concerning employees, customers, and product info.  
 
-# This SQL Selects customers full names, customer ID, and country of customers who are not in the US.
+## This SQL Selects customers full names, customer ID, and country of customers who are not in the US.
 
 SELECT firstname, lastname, customerid, country
 FROM customers
