@@ -1,18 +1,20 @@
-In this SQL, I am querying a multiple table database called "chinook", in order to to answer questions concerning employees, customers, and product info.  
+-In this SQL, I am querying a multiple table database called "chinook", in order to to answer questions concerning employees, customers, and product info.  
 
-This SQL Selects customers full names, customer ID, and country of customers who are not in the US.
+-This SQL Selects customers full names, customer ID, and country of customers who are not in the US.
 
 SELECT firstname, lastname, customerid, country
 FROM customers
 WHERE country != 'USA';
 
-Customers from Brazil.
+
+-Customers from Brazil.
 
 SELECT firstname, lastname, customerid, country
 FROM customers
 WHERE country = 'Brazil';
 
-Select invoices of customers who are from Brazil showing customer's full name, Invoice ID, Date of the invoice, and billing country.
+
+-Select invoices of customers who are from Brazil showing customer's full name, Invoice ID, Date of the invoice, and billing country.
 
 SELECT customers.firstname, customers.lastname, invoices.invoiceid, invoices.InvoiceDate, invoices.BillingCountry
 FROM customers
@@ -20,13 +22,15 @@ JOIN invoices
     ON customers.customerid = invoices.CustomerId
 WHERE country = 'Brazil';
 
-Select employees who are Sales Agents and what type of sales they are in.  
+
+-Select employees who are Sales Agents and what type of sales they are in.  
 
 SELECT firstname, lastname, title 
 FROM employees
 WHERE title LIKE '%Sales%';
 
-List of all songs on the "Heavy Metal Classic" Playlist.
+
+-List of all songs on the "Heavy Metal Classic" Playlist.
 
 SELECT DISTINCT tr.name AS Heavy_Metal_Playlist
 FROM playlist_track pltr
@@ -36,7 +40,8 @@ JOIN playlists
     ON pltr.PlaylistId = playlists.PlaylistId
 WHERE Playlists.name = 'Heavy Metal Classic';
 
-Select invoices associated with each sales agent.
+
+-Select invoices associated with each sales agent.
 
 SELECT employees.FirstName, employees.LastName, invoices.InvoiceId
 FROM customers
@@ -45,7 +50,8 @@ INNER JOIN employees
 INNER JOIN invoices
     ON customers.CustomerId = invoices.CustomerId;
     
-Select Invoice Total, Customer name, Country, and Sales Agent name for all invoices and customers.
+    
+-Select Invoice Total, Customer name, Country, and Sales Agent name for all invoices and customers.
 
 SELECT invoices.total AS Invoice_Total, employees.FirstName AS Agent_FirstName, employees.LastName AS Agent_LastName, customers.FirstName AS cust_FirstName, customers.LastName AS cust_LastName, 
 customers.Country
@@ -55,19 +61,22 @@ FULL JOIN employees
 FULL JOIN invoices
     ON customers.CustomerId = invoices.CustomerId;
     
-Number of Invoices in 2009.
+    
+-Number of Invoices in 2009.
 
 SELECT COUNT(*)
 FROM invoices 
 WHERE invoicedate LIKE '2009%';
 
-Total sales for 2009.
+
+-Total sales for 2009.
 
 SELECT SUM(total)
 FROM invoices
 WHERE invoicedate LIKE '2009%';
 
-Purchased track name along with each invoice line item.
+
+-Purchased track name along with each invoice line item.
 
 SELECT tracks.name AS Track_Name, invoice_items.InvoiceId, invoice_items.InvoiceLineId, 
 invoice_items.Quantity, invoice_items.TrackId, invoice_items.UnitPrice
@@ -75,7 +84,8 @@ FROM invoice_items
 INNER JOIN tracks
     ON invoice_items.TrackID = tracks.TrackId;
     
-Purchased track name and artist name along with each invoice line item.
+    
+-Purchased track name and artist name along with each invoice line item.
 
 SELECT tracks.Name AS Track_Name, artists.Name AS Artist_Name, invoice_items.InvoiceId, 
 invoice_items.InvoiceLineId,invoice_items.Quantity, invoice_items.TrackId, invoice_items.UnitPrice
@@ -88,7 +98,7 @@ INNER JOIN artists
     ON albums.ArtistId = artists.artistID;
     
 
-All Tracks with Album name, Media type, and Genre.
+-All Tracks with Album name, Media type, and Genre.
 
 SELECT tracks.Name AS Track_Name, albums.Title AS Album_Title, media_types.Name AS Media_Type, 
 genres.Name AS Genre
@@ -99,8 +109,9 @@ INNER JOIN genres
     ON tracks.GenreId = genres.GenreId
 INNER JOIN media_types
     ON tracks.MediaTypeId = media_types.MediaTypeId;
+    
 
-Total sales made by each sales agent.
+-Total sales made by each sales agent.
 
 SELECT employees.FirstName AS Sales_Rep_FirstName,  employees.LastName AS Sales_Rep_LastName, 
 ROUND(SUM(invoices.total), 2) AS Total_Sales
@@ -113,7 +124,7 @@ GROUP BY employees.FirstName
 ORDER BY Total_Sales DESC;
 
 
-Sales agent with the most sales in 2009.
+-Sales agent with the most sales in 2009.
 
 SELECT employees.FirstName AS Sales_Rep_FirstName,  employees.LastName AS Sales_Rep_LastName, 
 ROUND(SUM(invoices.total), 2) AS Total_Sales
