@@ -1,0 +1,116 @@
+# In this SQL I will be using data from Ethical Seconds resale shop's Poshmark Sales Report.
+# First, I created a table to insert the data into.
+# Next, I performed analytics on the data using SQL.
+
+CREATE TABLE Posh_DB.PoshData(
+ListingDate DATE,
+OrderDate DATE,
+SKU varchar,
+OrderId varchar,
+ListingTitle TEXT,
+Department TEXT,
+Category TEXT,
+Subcategory TEXT,
+Brand TEXT,
+Color TEXT,
+Size varchar,
+BundleOrder TEXT,
+OfferOrder TEXT,
+OrderPrice INTEGER,
+LowestSetPrice INTEGER,
+SellerShippingDiscount INTEGER,
+UpgradedShippingLabel INTEGER,
+NetEarnings INTEGER,
+BuyerState TEXT,
+BuyerZip INTEGER,
+Buyerusername TEXT);
+
+
+# Gross Revenue and Gross Profit for 2021 
+
+SELECT ROUND(SUM(OrderPrice),2) AS Gross_Revenue, ROUND(SUM(NetEarnings),2) AS Gross_Profit
+FROM Posh_DB.PoshData;
+
+
+# Total sales made after an offer was presented to buyer.
+
+SELECT ROUND(SUM(OrderPrice))
+FROM Posh_DB.PoshData
+WHERE OfferOrder = 'Y';
+
+
+# Profit Margins for 2021.
+
+SELECT ROUND(SUM(NetEarnings)/SUM(OrderPrice), 2)
+FROM Posh_DB.PoshData;
+
+
+# Total 2021 Sales in each state
+
+SELECT BuyerState, ROUND(SUM(OrderPrice))
+FROM Posh_DB.PoshData
+GROUP BY BuyerState;
+
+
+# All brand names sold in year 2021.
+
+SELECT DISTINCT Brand
+FROM Posh_DB.PoshData
+WHERE Brand NOT NULL;
+
+
+# Sales made including a bundled offer.
+
+SELECT ROUND(SUM(OrderPrice)) AS Bundle_Order
+FROM Posh_DB.PoshData
+WHERE BundleOrder = 'Y';
+
+
+# Total number of orders for 2021 groupbed by Department
+
+SELECT COUNT(OrderId), Department
+FROM Posh_DB.PoshData
+GROUP BY Department;
+
+
+# Average profit per category listed from greatest to least.  
+
+SELECT Category, ROUND(AVG(NetEarnings)) AS Profit
+FROM Posh_DB.PoshData
+GROUP BY Category
+ORDER BY Profit DESC;
+
+
+# Top ten best selling categories.
+
+SELECT Category, ROUND(SUM(OrderPrice)) AS Total_Sales
+FROM Posh_DB.PoshData
+GROUP BY Category
+ORDER BY Total_Sales DESC
+LIMIT 10;
+
+
+# Top 5 states with highest revenue.
+
+SELECT BuyerState, ROUND(SUM(OrderPrice)) AS Total_Revenue
+FROM Posh_DB.PoshData
+GROUP BY BuyerState
+ORDER BY Total_Revenue DESC
+LIMIT 5;
+
+
+# States with more than 10 sales in the "womens" category.
+
+SELECT BuyerState, COUNT(*) AS NumberOfSales
+FROM Posh_DB.PoshData
+WHERE Department = 'Women'
+GROUP BY BuyerState
+HAVING COUNT(*) > 10
+ORDER BY NumberOfSales DESC;
+
+
+
+
+
+
+
