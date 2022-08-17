@@ -1,4 +1,4 @@
-# For this project I will be using data from Ethical Seconds resale shop's Poshmark Sales Report.
+# For this project I will be using data from Ethical Seconds resale shop's Poshmark Sales Report from January 2021.
 # Next, I created a table to insert the data into.
 # Finally, I performed analytics on the data using SQL.
 
@@ -26,7 +26,7 @@ BuyerZip INTEGER,
 Buyerusername TEXT);
 
 
-# Gross Revenue and Gross Profit for 2021 
+# Gross Revenue and Gross Profit on Poshmark platform
 
 SELECT ROUND(SUM(OrderPrice),2) AS Gross_Revenue, ROUND(SUM(NetEarnings),2) AS Gross_Profit
 FROM Posh_DB.PoshData;
@@ -39,20 +39,20 @@ FROM Posh_DB.PoshData
 WHERE OfferOrder = 'Y';
 
 
-# Profit Margins for 2021.
+# Poshmark Gross Profit Margins for the month.
 
 SELECT ROUND(SUM(NetEarnings)/SUM(OrderPrice), 2)
 FROM Posh_DB.PoshData;
 
 
-# Total 2021 Sales in each state
+# Total Sales Revenue in each state
 
 SELECT BuyerState, ROUND(SUM(OrderPrice))
 FROM Posh_DB.PoshData
 GROUP BY BuyerState;
 
 
-# All brand names sold in year 2021.
+# List of all brand names sold.
 
 SELECT DISTINCT Brand
 FROM Posh_DB.PoshData
@@ -66,7 +66,7 @@ FROM Posh_DB.PoshData
 WHERE BundleOrder = 'Y';
 
 
-# Total number of orders for 2021 grouped by Department
+# Total number of orders grouped by Department
 
 SELECT COUNT(OrderId), Department
 FROM Posh_DB.PoshData
