@@ -1,0 +1,66 @@
+# I wrote the following SQL as part of a project to help a Not For Profit Homeschool Co-op extract data from an auto populated Google form sign up sheet.
+# I first cleaned the data correcting errors made during the sign up process as well as simplifying data where necessary.
+# Next, I created all appropriate tables in a SQL database and inserted the data.  
+# Finally, I ran SQL to deliver the appropriate data in an organized insightful format in accordance with the current needs of the co-op.  
+
+# Created a table to house financial data.
+
+CREATE TABLE BIT_DB.Coop_Finance(
+FamilyNumber INTEGER,
+FamilyName TEXT,
+ParentName TEXT,
+email VARCHAR,
+ReleaseFallScheduling TEXT,
+SignedUpForTeaching TEXT,
+SignedUpForHelping TEXT,
+FacebookGroup TEXT,
+PmtStatus VARCHAR,
+PmtMethod TEXT,
+Fall2022PaymentAmt VARCHAR,
+ExpectedPmt VARCHAR,
+AmountRemaining INTEGER,
+PaymentPlan TEXT);
+
+# Created a table to insert data from the Fall 2022 Semester sign up form.
+
+CREATE TABLE BIT_DB.Coop_Form_Responses(
+FamilyID INTEGER,
+FamilyName TEXT,
+ParentAttendingCoop TEXT,
+NewFamily TEXT,
+Deposit TEXT,
+ReferralCredits VARCHAR,
+PaymentMethod TEXT,
+Fall2022PmtAmt VARCHAR,
+PaymentPlan TEXT,
+PaymentPlanDetails VARCHAR,
+Parent_1_email VARCHAR,
+Parent_1_Name TEXT,
+Parent_2_Name TEXT,
+Parent_2_email VARCHAR,
+PhoneNumber VARCHAR,
+CityStateResidence VARCHAR,
+ChildName TEXT,
+ChildAge INTEGER,
+Gender TEXT,
+Child_Relation_to_Attending_Parent VARCHAR,
+HowDidYouHearAboutUs VARCHAR,
+PersonWhoReferredYou TEXT,
+HaveAnyQuestions TEXT,
+Interested_In_Serving TEXT,
+Abilities_to_Serve VARCHAR,
+DepositPaid TEXT,
+Date_Fees_Paid DATE,
+Method_of_Payment VARCHAR);
+
+
+
+
+# Identified all participants who still owe toward tuition along with their current balance and contact info.  
+
+SELECT ParentName, email, PmtStatus
+FROM BIT_DB.Coop_Finance
+WHERE PmtStatus LIKE '%outstanding%';
+
+
+
