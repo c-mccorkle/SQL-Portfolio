@@ -1,6 +1,6 @@
 # I wrote the following SQL as part of a project to help a Not For Profit Homeschool Co-op extract data from an auto populated Google form sign up sheet.
 # I first cleaned the data correcting errors made during the sign up process as well as simplifying data where necessary.
-# Next, I created all appropriate tables in a SQL database and inserted the data.  
+# Next, I created the appropriate tables in a SQL database and inserted the data.  
 # Finally, I ran SQL to deliver the appropriate data in an organized insightful format in accordance with the current needs of the co-op.  
 
 # Created a table to house financial data.
@@ -56,7 +56,7 @@ Method_of_Payment VARCHAR);
 
 
 
-# Identified all participants who still owe toward tuition along with their current balance and contact info.  
+# Identify all participants who still owe toward tuition along with their current balance and contact info.  
 
 SELECT ParentName, email, PmtStatus
 FROM BIT_DB.Coop_Finance
