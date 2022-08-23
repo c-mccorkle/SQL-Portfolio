@@ -3,7 +3,7 @@
 # Next, I created the appropriate tables in a SQL database and inserted the data.  
 # Finally, I ran SQL to deliver the appropriate data in an organized insightful format in accordance with the current needs of the co-op.  
 
-# Created a table to house financial data.
+# Created a table to insert financial data.
 
 CREATE TABLE BIT_DB.Coop_Finance(
 FamilyNumber INTEGER,
@@ -55,12 +55,44 @@ Method_of_Payment VARCHAR);
 
 
 
+# Identify all participants who still owe toward tuition, include if they have a payment plan, along with their current balance and contact info.  
 
-# Identify all participants who still owe toward tuition along with their current balance and contact info.  
-
-SELECT ParentName, email, PmtStatus
+SELECT ParentName, email, PmtStatus, PaymentPlan
 FROM BIT_DB.Coop_Finance
 WHERE PmtStatus LIKE '%outstanding%';
+
+
+# Extract contact info for parents that will be attending coop meetings;
+
+SELECT DISTINCT ParentAttendingCoop, Parent_1_email, PhoneNumber
+FROM BIT_DB.Coop_Form_Responses
+ORDER BY ParentAttendingCoop ASC;
+
+# Quantify members by location.
+
+SELECT CityStateResidence, COUNT(CityStateResidence) AS Num_of_Coop_Members
+FROM BIT_DB.Coop_Form_Responses
+GROUP BY CityStateresidence;
+
+
+# Quantify children by age.  
+
+SELECT ChildAge AS Age, COUNT(ChildAge) AS Number_of_Children
+FROM BIT_DB.Coop_Form_Responses
+GROUP BY ChildAge;
+
+
+
+# Children's contact info.  
+
+SELECT ChildName, ParentAttendingCoop, PhoneNumber, Parent_1_email AS emailaddress
+FROM BIT_DB.Coop_Form_Responses
+ORDER BY ChildName ASC;
+
+
+
+
+
 
 
 
