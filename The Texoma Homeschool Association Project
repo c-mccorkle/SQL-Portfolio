@@ -1,0 +1,29 @@
+# I wrote the following SQL as part of a project to help a Not For Profit Homeschool Co-op extract data from an auto populated Google form sign up sheet.
+# I first cleaned the data correcting errors made during the sign up process as well as simplifying data where necessary.
+# Next, I created the appropriate tables in a SQL database and inserted the data.  
+# Finally, I ran SQL to deliver the appropriate data in an organized insightful format in accordance with the current needs of the co-op. 
+
+### This is a project in progress.  
+
+
+CREATE TABLE Texoma.Parents(
+AttendingParentId INTEGER PRIMARY KEY,
+AttendingParentName TEXT,
+NonAttendingParentName TEXT,
+FamilyName TEXT,
+New TEXT,
+email VARCHAR,
+PhoneNumber INTEGER,
+CityofResidence TEXT,
+StateofResidence TEXT,
+RelationshiptoStudent TEXT);
+
+
+
+CREATE TABLE Texoma.Students(
+StudentID INTEGER PrimaryKey,
+StudentFullName VARCHAR,
+AttendingParentID INTEGER,
+New TEXT,
+Age INTEGER,
+Gender TEXT);
