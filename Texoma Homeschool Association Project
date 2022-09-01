@@ -18,8 +18,6 @@ CityofResidence TEXT,
 StateofResidence TEXT,
 RelationshiptoStudent TEXT);
 
-
-
 CREATE TABLE Texoma.Students(
 StudentID INTEGER PrimaryKey,
 StudentFullName VARCHAR,
@@ -27,3 +25,77 @@ AttendingParentID INTEGER,
 New TEXT,
 Age INTEGER,
 Gender TEXT);
+
+CREATE TABLE Texoma.Classes(
+AttendingParentID INTEGER,
+Period INTEGER,
+Times VARCHAR,
+Groups VARCHAR,
+Class VARCHAR,
+Room VARCHAR);
+
+CREATE TABLE Texoma.FormResponses(
+AttendingParentID INTEGER,
+FoundUsThru TEXT,
+RefferredBY VARCHAR,
+Questions TEXT,
+ServiceInterest TEXT,
+ServiceType VARCHAR,
+DepositPaid VARCHAR,
+PaymentMethod VARCHAR);
+
+
+# Identified how many children are associated with each family.
+
+SELECT AttendingParentName, COUNT(StudentFullname) Num_of_children_attending
+FROM Texoma.Parents Par
+JOIN Texoma.Students St
+    ON Par.AttendingParentId = St.AttendingParentID
+GROUP BY AttendingParentName;
+
+
+# Identified how parents heard about the co-op including the name of the individual who refferred them when applicable. 
+
+SELECT AttendingParentName, FoundUsThru, RefferredBy
+FROM Texoma.FormResponses FR
+JOIN Texoma.Parents Par
+    ON FR.AttendingParentID = Par.AttendingParentID;
+    
+# Identified all parents that have questions about the upcoming school year and what their question is.
+
+SELECT AttendingParentName, Questions, PhoneNumber, email
+FROM Texoma.Parents Par
+JOIN Texoma.FormResponses FR
+    ON Par.AttendingParentID = FR.AttendingParentID
+WHERE Questions NOT LIKE '%No%';
+
+
+# Identified all parents willing to serve the co-op and in what capacity.
+
+SELECT AttendingParentName, ServiceInterest, ServiceType
+FROM Texoma.FormResponses FR
+JOIN Texoma.Parents Par
+    ON FR.AttendingParentID = Par.AttendingParentID
+WHERE ServiceInterest NOT LIKE '%No%';
+
+# Student name with emergency contact info.
+
+SELECT StudentFullName, email AS ParentEmail, PhoneNumber AS ParentPhone
+FROM Texoma.Students St
+JOIN Texoma.Parents Par
+    ON St.AttendingParentID = Par.AttendingParentId;
+    
+# Quantified all the avenues through which parents heard about the co-op.
+
+SELECT FoundUsThru, COUNT(FoundUsThru) Count
+FROM Texoma.FormResponses
+GROUP BY FoundUsThru
+ORDER BY Count Desc;
+
+# Identified how many families are from each city.
+
+SELECT CityofResidence City, COUNT(*) Num_of_Families
+FROM Texoma.Parents
+GROUP BY CityofResidence
+ORDER BY Num_of_Families DESC;
+
