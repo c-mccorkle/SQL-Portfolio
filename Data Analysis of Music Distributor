@@ -53,8 +53,8 @@ INNER JOIN invoices
     
 # Select Invoice Total, Customer name, Country, and Sales Agent name for all invoices and customers.
 
-SELECT invoices.total AS Invoice_Total, employees.FirstName AS Agent_FirstName, employees.LastName AS Agent_LastName, customers.FirstName AS cust_FirstName, customers.LastName AS cust_LastName, 
-customers.Country
+SELECT invoices.total AS Invoice_Total, employees.FirstName AS Agent_FirstName, employees.LastName AS Agent_LastName, customers.FirstName AS cust_FirstName, 
+customers.LastName AS cust_LastName, customers.Country
 FROM customers
 FULL JOIN employees
     ON customers.SupportRepId = employees.EmployeeId
@@ -69,7 +69,7 @@ FROM invoices
 WHERE invoicedate LIKE '2009%';
 
 
-# Total sales for 2009.
+# Gross revenue for 2009.
 
 SELECT SUM(total)
 FROM invoices
