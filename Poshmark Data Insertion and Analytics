@@ -1,3 +1,7 @@
+#For this project I used data from a Poshmark sales report from "Ethical Seconds" resale shop. 
+#I created a table to insert the data , and then performed analytics on the data using SQL
+
+
 CREATE TABLE Posh_DB.PoshData(
 ListingDate DATE,
 OrderDate DATE,
